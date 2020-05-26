@@ -1,5 +1,6 @@
 INSERT INTO branch
-    (branchName, branchManager)
+    (branchID, branchName, branchManager)
 VALUES
-    ('j p nagar', 'kaustubh mk'),
-    
+    ('BR1', 'JP Nagar', 'kaustubh kulkarni'),
+    ('BR2', 'Jayanagar', 'mark anthony'),
+    ('BR3', 'Banashankari', 'rohan sj');

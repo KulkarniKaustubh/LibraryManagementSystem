@@ -1,7 +1,7 @@
-DROP TABLE borrowed;
-DROP TABLE books;
-DROP TABLE customer_subscription;
-DROP TABLE author;
-DROP TABLE branch_address;
-DROP TABLE branch;
-DROP TABLE customer;
+DROP TABLE IF EXISTS borrowed;
+DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS customer_subscription;
+DROP TABLE IF EXISTS author;
+DROP TABLE IF EXISTS branch_address;
+DROP TABLE IF EXISTS branch;
+DROP TABLE IF EXISTS customer;
