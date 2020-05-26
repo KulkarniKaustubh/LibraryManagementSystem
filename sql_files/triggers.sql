@@ -5,6 +5,7 @@ DROP TRIGGER IF EXISTS author_name;
 DROP TRIGGER IF EXISTS set_due_date;
 DROP TRIGGER IF EXISTS return_status_modify;
 DROP TRIGGER IF EXISTS date_violation;
+DROP TRIGGER IF EXISTS borrow_limit;
 
 DELIMITER //
 
@@ -35,11 +36,23 @@ BEGIN
     SET NEW.branchManager = UPPER(NEW.branchManager);
 END//
 
-CREATE TRIGGER set_due_date
-BEFORE INSERT ON borrowed
-FOR EACH ROW
+CREATE TRIGGER borrow_limit
+    BEFORE INSERT ON borrowed
+    FOR EACH ROW
 BEGIN
-SET NEW.dueDate = DATE_ADD(NEW.borrowedDate, interval 14 day);
+    DECLARE nBooks int(1);
+    SET nBooks= (SELECT COUNT(bookID) FROM borrowed WHERE customerID = NEW.customerID AND returnStatus = 'NOT RETURNED');
+    IF (nBooks > 7) THEN
+        SIGNAL SQLSTATE '46000'
+            SET MESSAGE_TEXT = 'Cannot borrow more than 7 books.';
+    END IF;
+END//
+
+CREATE TRIGGER set_due_date
+    BEFORE INSERT ON borrowed
+    FOR EACH ROW
+BEGIN
+    SET NEW.dueDate = DATE_ADD(NEW.borrowedDate, interval 14 day);
 END//
 
 CREATE TRIGGER book_return_trigger
