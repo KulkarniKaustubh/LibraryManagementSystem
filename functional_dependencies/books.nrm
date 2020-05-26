@@ -1,0 +1,5 @@
+bookID,bookName,bookGenre,authorID,branchID
+
+bookID -> bookName,bookGenre
+bookID -> branchID
+bookID -> authorID

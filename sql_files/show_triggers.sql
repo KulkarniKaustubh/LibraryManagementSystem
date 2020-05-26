@@ -1,0 +1,1 @@
+SHOW TRIGGERS; -- LIKE 'pattern';

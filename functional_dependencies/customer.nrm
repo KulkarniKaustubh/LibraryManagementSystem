@@ -1,0 +1,3 @@
+customerID,firstName,lastName,age
+
+customerID -> firstName,lastName,age
