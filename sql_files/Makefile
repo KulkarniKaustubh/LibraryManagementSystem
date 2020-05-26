@@ -24,6 +24,8 @@ show_triggers:
 
 branch_insert:
 	sudo mysql -u root -p library -t < ./insert_in_branch.sql
+branch_address_insert:
+	sudo mysql -u root -p library -t < ./insert_in_branch_address.sql
 customer_insert:
 	sudo mysql -u root -p library -t < ./insert_in_customer.sql
 customer_subscription_insert:
@@ -37,6 +39,8 @@ borrowed_insert:
 
 branch_delete:
 	sudo mysql -u root -p library -t < ./branch_delete.sql
+branch_address_delete:
+	sudo mysql -u root -p library -t < ./branch_address_delete.sql
 customer_delete:
 	sudo mysql -u root -p library -t < ./customer_delete.sql
 customer_subscription_delete:
@@ -47,3 +51,6 @@ books_delete:
 	sudo mysql -u root -p library -t < ./books_delete.sql
 borrowed_delete:
 	sudo mysql -u root -p library -t < ./borrowed_delete.sql
+
+test_join:
+	sudo mysql -u root -p library -t < ./join_test.sql

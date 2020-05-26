@@ -1,4 +1,4 @@
 customerID,bookID,dueDate,borrowedDate,numberOfDaysBorrowed
 
-customerID -> dueDate,borrowedDate,numberOfDaysBorrowed
+customerID -> dueDate,borrowedDate,dateReturned
 customerID -> bookID

@@ -57,6 +57,7 @@ CREATE TABLE borrowed (
     dateReturned date,
     payFine int(5),
     returnStatus varchar(255) NOT NULL,
+    CHECK (borrowedDate <= dateReturned),
     CONSTRAINT FK_bookIDInBorrowed FOREIGN KEY (bookID) REFERENCES books(bookID),
     CONSTRAINT FK_customerIDInBorrowed FOREIGN KEY (customerID) REFERENCES customer(customerID)
 );
