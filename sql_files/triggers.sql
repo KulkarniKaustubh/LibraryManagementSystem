@@ -6,6 +6,7 @@ DROP TRIGGER IF EXISTS set_due_date;
 DROP TRIGGER IF EXISTS return_status_modify;
 DROP TRIGGER IF EXISTS date_violation;
 DROP TRIGGER IF EXISTS borrow_limit;
+DROP TRIGGER IF EXISTS book_constraints;
 
 DELIMITER //
 
@@ -36,7 +37,7 @@ BEGIN
     SET NEW.branchManager = UPPER(NEW.branchManager);
 END//
 
-CREATE TRIGGER borrow_limit
+CREATE TRIGGER book_constraints
     BEFORE INSERT ON borrowed
     FOR EACH ROW
 BEGIN
@@ -45,6 +46,18 @@ BEGIN
     IF (nBooks > 7) THEN
         SIGNAL SQLSTATE '46000'
             SET MESSAGE_TEXT = 'Cannot borrow more than 7 books.';
+    END IF;
+END//
+
+CREATE TRIGGER borrow_limit
+    BEFORE INSERT ON borrowed
+    FOR EACH ROW
+BEGIN
+    DECLARE bID varchar(10);
+    SET bID = (SELECT bookID FROM borrowed WHERE bookID = NEW.bookID AND returnStatus = 'NOT RETURNED');
+    IF bID IS NOT NULL THEN
+        SIGNAL SQLSTATE '47000'
+            SET MESSAGE_TEXT = 'Cannot borrow book. Already borrowed and not yet returned.';
     END IF;
 END//
 
